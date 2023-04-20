@@ -4,7 +4,6 @@ from pyspark.ml.linalg import Vectors
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.regression import LinearRegression
 import mlflow
-from modelclass import PySparkLinearRegressionModel
 from mlflow.models.signature import infer_signature
 import os
 import pandas as pd
@@ -60,7 +59,6 @@ with mlflow.start_run(run_name="linear_regression"):
     mlflow.set_tag("model_type", "LinearRegression")
     
     # Register the trained model in the MLflow Model Registry
-    py_model = PySparkLinearRegressionModel()
     artifact_path="model_87"
     mlflow.spark.log_model(trained_ship_model, artifact_path, conda_env=None, code_paths=None, dfs_tmpdir=None, sample_input=None, registered_model_name='model_87',signature=schema_signature())
     unlabeled_data = test_data.select("features")
